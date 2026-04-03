@@ -24,52 +24,36 @@ the [Dichiarino MCP server](../README.md) is connected.
 
 ## Installation
 
-### Claude Code (claude.ai/code)
+### Claude Code
 
-The easiest way is to add the skills folder as a project context directory so Claude
-picks up all `SKILL.md` files automatically:
-
-```bash
-# From the repo root - add the skills directory to Claude Code's context
-claude --add-dir skills
-```
-
-Or, to load a **single skill** for the current session:
+Copy the skills you want into your project's `.claude/skills/` directory (the standard
+location Claude Code auto-discovers):
 
 ```bash
-claude --add-dir skills/calcola-irpef-730
+# From the repo root - copy all skills into your project
+cp -r skills/* /path/to/your-project/.claude/skills/
 ```
 
-Alternatively, reference the skill inline inside your project's `CLAUDE.md`:
+Or, to install a **single skill**:
 
-```markdown
-<!-- CLAUDE.md -->
-@skills/calcola-irpef-730/SKILL.md
-@skills/compila-quadro-730/SKILL.md
+```bash
+cp -r skills/calcola-irpef-730 /path/to/your-project/.claude/skills/
 ```
 
-### Claude Desktop
-
-1. Open **Claude Desktop** → **Settings** → **Developer** → **Edit Config**
-   (`~/Library/Application Support/Claude/claude_desktop_config.json` on macOS).
-
-2. Add a `userDefinedFiles` entry pointing at the skills you want active:
-
-   ```json
-   {
-     "userDefinedFiles": [
-       "/absolute/path/to/dichiarino-mcp/skills/calcola-irpef-730/SKILL.md",
-       "/absolute/path/to/dichiarino-mcp/skills/compila-quadro-730/SKILL.md"
-     ]
-   }
-   ```
-
-3. Restart Claude Desktop. The skills will be injected into every conversation as
-   context - Claude will automatically follow the instructions and use the embedded
-   fiscal data.
+Claude Code will automatically detect the skills and use them when relevant.
+You can also invoke them manually with `/skill-name` (e.g. `/calcola-irpef-730`).
 
 > **Tip:** for the best experience, also connect the [Dichiarino MCP server](../README.md#with-claude-desktop)
 > so Claude can call live calculation tools instead of relying solely on embedded rules.
+
+### Claude Desktop (claude.ai)
+
+1. Go to **claude.ai** → **Settings** → **Customize** → **Skills**
+2. Upload each skill as a ZIP file containing the skill folder (e.g. `calcola-irpef-730.zip`)
+3. Enable the uploaded skills
+
+> **Tip:** also connect the [Dichiarino MCP server](../README.md#with-claude-desktop)
+> for live calculation tools.
 
 ### Cursor
 

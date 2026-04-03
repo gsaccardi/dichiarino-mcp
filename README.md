@@ -103,14 +103,14 @@ Add to your `claude_desktop_config.json`:
 
 ### With Cursor or other MCP clients
 
+Add to `.cursor/mcp.json` (project) or `~/.cursor/mcp.json` (global):
+
 ```json
 {
-  "mcp": {
-    "servers": {
-      "dichiarino": {
-        "command": "uv",
-        "args": ["--directory", "/path/to/dichiarino-mcp", "run", "dichiarino"]
-      }
+  "mcpServers": {
+    "dichiarino": {
+      "command": "uv",
+      "args": ["--directory", "/path/to/dichiarino-mcp", "run", "dichiarino"]
     }
   }
 }
