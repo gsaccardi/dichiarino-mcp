@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.2.1] - 2026-04-03
+
+---
+
 ## [0.1.0] - 2025-04-03
 
 ### Added
@@ -36,5 +40,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CI workflow (Python 3.11–3.13) and PyPI release workflow
 - Apache 2.0 license with attribution via NOTICE
 
-[Unreleased]: https://github.com/gsaccardi/dichiarino-mcp/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/gsaccardi/dichiarino-mcp/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/gsaccardi/dichiarino-mcp/compare/v0.1.0...v0.2.1
 [0.1.0]: https://github.com/gsaccardi/dichiarino-mcp/releases/tag/v0.1.0
