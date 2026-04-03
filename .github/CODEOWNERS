@@ -1,0 +1,10 @@
+# Global owner — reviews required from @gsaccardi on all PRs
+* @gsaccardi
+
+# Fiscal data and calculators — especially sensitive, always needs review
+src/dichiarino/data/       @gsaccardi
+src/dichiarino/calculators/ @gsaccardi
+
+# Legal / license files
+LICENSE     @gsaccardi
+NOTICE      @gsaccardi

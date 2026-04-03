@@ -1,0 +1,36 @@
+name: Feature Request
+description: Suggest a new tool, resource, or fiscal rule to add
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion! Dichiarino aims to cover all aspects of the 730 precompilato.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What would you like added?
+      description: Describe the feature - new tool, new deduction type, new quadro, etc.
+    validations:
+      required: true
+
+  - type: textarea
+    id: source
+    attributes:
+      label: Official Source
+      description: Link to the Agenzia delle Entrate or legal source for this rule.
+      placeholder: "https://www.agenziaentrate.gov.it/..."
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      options:
+        - New MCP Tool
+        - New deduction / expense type
+        - New tax year data
+        - New region surcharge
+        - Documentation
+        - Other

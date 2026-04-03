@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160" width="520" height="160">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f2744;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a3a5c;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Document gradient -->
+    <linearGradient id="docGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e8f0fe;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Glow filter for sparkles -->
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Drop shadow for document -->
+    <filter id="docShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="3" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+
+    <!-- Clip for rounded rect background -->
+    <clipPath id="bgClip">
+      <rect width="520" height="160" rx="16" ry="16"/>
+    </clipPath>
+  </defs>
+
+  <!-- Rounded background -->
+  <rect width="520" height="160" rx="16" ry="16" fill="url(#bgGrad)"/>
+
+  <!-- Subtle grid pattern overlay -->
+  <g clip-path="url(#bgClip)" opacity="0.04">
+    <line x1="0" y1="20" x2="520" y2="20" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="40" x2="520" y2="40" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="60" x2="520" y2="60" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="80" x2="520" y2="80" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="100" x2="520" y2="100" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="120" x2="520" y2="120" stroke="white" stroke-width="1"/>
+    <line x1="0" y1="140" x2="520" y2="140" stroke="white" stroke-width="1"/>
+    <line x1="40" y1="0" x2="40" y2="160" stroke="white" stroke-width="1"/>
+    <line x1="80" y1="0" x2="80" y2="160" stroke="white" stroke-width="1"/>
+    <line x1="120" y1="0" x2="120" y2="160" stroke="white" stroke-width="1"/>
+    <line x1="160" y1="0" x2="160" y2="160" stroke="white" stroke-width="1"/>
+    <line x1="200" y1="0" x2="200" y2="160" stroke="white" stroke-width="1"/>
+    <line x1="240" y1="0" x2="240" y2="160" stroke="white" stroke-width="1"/>
+    <line x1="280" y1="0" x2="280" y2="160" stroke="white" stroke-width="1"/>
+    <line x1="320" y1="0" x2="320" y2="160" stroke="white" stroke-width="1"/>
+    <line x1="360" y1="0" x2="360" y2="160" stroke="white" stroke-width="1"/>
+    <line x1="400" y1="0" x2="400" y2="160" stroke="white" stroke-width="1"/>
+    <line x1="440" y1="0" x2="440" y2="160" stroke="white" stroke-width="1"/>
+    <line x1="480" y1="0" x2="480" y2="160" stroke="white" stroke-width="1"/>
+  </g>
+
+  <!-- Italian tricolor accent bar (left edge) -->
+  <rect x="0" y="0" width="6" height="53" rx="0" fill="#009246"/>
+  <rect x="0" y="53" width="6" height="54" rx="0" fill="#ffffff"/>
+  <rect x="0" y="107" width="6" height="53" rx="0" fill="#ce2b37"/>
+
+  <!-- ═══════════════════════════════ DOCUMENT ICON ═══════════════════════════ -->
+  <!-- Document body -->
+  <rect x="30" y="24" width="68" height="88" rx="6" ry="6"
+        fill="url(#docGrad)" filter="url(#docShadow)"/>
+
+  <!-- Document top fold (corner ear) -->
+  <polygon points="78,24 98,44 78,44" fill="#c7d8f5"/>
+  <polygon points="78,24 98,24 98,44" fill="#a8c0e8"/>
+
+  <!-- Horizontal lines on document (form fields) -->
+  <rect x="38" y="52" width="40" height="3" rx="1.5" fill="#4a7fcb" opacity="0.5"/>
+  <rect x="38" y="62" width="32" height="3" rx="1.5" fill="#4a7fcb" opacity="0.4"/>
+  <rect x="38" y="72" width="40" height="3" rx="1.5" fill="#4a7fcb" opacity="0.5"/>
+  <rect x="38" y="82" width="28" height="3" rx="1.5" fill="#4a7fcb" opacity="0.4"/>
+
+  <!-- Label "730" on document -->
+  <text x="46" y="45" font-family="Georgia, 'Times New Roman', serif"
+        font-size="13" font-weight="700" fill="#0f2744" opacity="0.85"
+        letter-spacing="1">730</text>
+
+  <!-- ═══════════════════════════════ GREEN CHECKMARK BADGE ══════════════════ -->
+  <!-- Circle badge -->
+  <circle cx="86" cy="96" r="16" fill="#009246"/>
+  <circle cx="86" cy="96" r="16" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.3"/>
+  <!-- Checkmark path -->
+  <polyline points="78,96 84,103 95,88"
+            fill="none" stroke="white" stroke-width="3"
+            stroke-linecap="round" stroke-linejoin="round"
+            filter="url(#glow)"/>
+
+  <!-- ═══════════════════════════════ TITLE TEXT ════════════════════════════ -->
+  <!-- Main title -->
+  <text x="120" y="82"
+        font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+        font-size="46" font-weight="700" fill="#ffffff"
+        letter-spacing="-1">Dichiarino</text>
+
+  <!-- Tagline -->
+  <text x="122" y="107"
+        font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+        font-size="13.5" font-weight="400" fill="#8ab4d8"
+        letter-spacing="0.2">
+    Il tuo assistente fiscale per il 730 precompilato
+  </text>
+
+  <!-- ═══════════════════════════════ MCP BADGE ════════════════════════════ -->
+  <!-- MCP pill -->
+  <rect x="120" y="118" width="54" height="22" rx="11" fill="#1e4d7a"/>
+  <rect x="120" y="118" width="54" height="22" rx="11" fill="none" stroke="#4a90d9" stroke-width="1"/>
+  <text x="147" y="133"
+        font-family="'Segoe UI', monospace, sans-serif"
+        font-size="10.5" font-weight="600" fill="#7ec8f8"
+        text-anchor="middle" letter-spacing="1">MCP</text>
+
+  <!-- AI sparkle icon next to MCP -->
+  <g transform="translate(182, 125)" filter="url(#glow)">
+    <!-- Star/sparkle shape -->
+    <path d="M8,0 L9.5,6 L16,8 L9.5,9.5 L8,16 L6.5,9.5 L0,8 L6.5,6 Z"
+          fill="#fbbf24" opacity="0.9"/>
+  </g>
+
+  <!-- Small sparkles scattered -->
+  <circle cx="460" cy="35" r="2" fill="#fbbf24" opacity="0.7" filter="url(#glow)"/>
+  <circle cx="475" cy="55" r="1.2" fill="#60a5fa" opacity="0.6"/>
+  <circle cx="490" cy="28" r="1.5" fill="#fbbf24" opacity="0.5"/>
+  <circle cx="500" cy="48" r="1" fill="#60a5fa" opacity="0.5"/>
+
+  <!-- Large decorative sparkle top-right -->
+  <g transform="translate(454, 20)" opacity="0.5" filter="url(#glow)">
+    <path d="M10,0 L12,8 L20,10 L12,12 L10,20 L8,12 L0,10 L8,8 Z"
+          fill="#fbbf24"/>
+  </g>
+
+  <!-- Bottom-right: version label -->
+  <text x="498" y="148"
+        font-family="'Segoe UI', monospace, sans-serif"
+        font-size="9" fill="#4a7096" text-anchor="end">v0.1.0</text>
+</svg>

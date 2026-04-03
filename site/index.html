@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dichiarino - Your intelligent tax assistant for the Italian 730</title>
+  <meta name="description" content="An MCP server that gives AI assistants deep knowledge of the Italian tax system. Calculate IRPEF, deductions, and guide your 730 precompilato." />
+  <meta property="og:title" content="Dichiarino - Intelligent 730 Tax Assistant" />
+  <meta property="og:description" content="An MCP server for Italian tax returns. IRPEF calculations, deductions, codice fiscale validation, and more." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://gsaccardi.github.io/dichiarino-mcp/" />
+  <link rel="icon" href="assets/logo-icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="container">
+      <a href="#" class="nav-logo">
+        <img src="assets/logo-icon.svg" alt="Dichiarino" />
+        Dichiarino
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#quickstart">Quick Start</a></li>
+        <li><a href="#example">Example</a></li>
+        <li><a href="https://github.com/gsaccardi/dichiarino-mcp">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <img src="assets/logo.svg" alt="Dichiarino" class="hero-logo" />
+      <p class="hero-tagline">
+        An MCP server that gives any AI assistant deep knowledge of the Italian
+        tax system and calculation tools for the Modello 730.
+      </p>
+      <div class="hero-badges">
+        <img src="https://img.shields.io/badge/python-3.11+-blue.svg" alt="Python 3.11+" />
+        <img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License: Apache 2.0" />
+        <img src="https://img.shields.io/badge/MCP-compatible-brightgreen.svg" alt="MCP compatible" />
+      </div>
+      <div class="hero-cta">
+        <a href="#quickstart" class="btn btn-primary">Get Started</a>
+        <a href="https://github.com/gsaccardi/dichiarino-mcp" class="btn btn-secondary">View on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">What is Dichiarino?</h2>
+      <p class="about-content">
+        Dichiarino is an <a href="https://modelcontextprotocol.io">MCP (Model Context Protocol)</a>
+        server that embeds official Italian fiscal rules, IRPEF rates, and deduction limits.
+        Connect it to Claude Desktop, Cursor, or any MCP client and your AI assistant gains
+        12 specialized tools to guide you through your annual 730 tax return.
+      </p>
+      <div class="about-note">
+        The Agenzia delle Entrate provides no public API for the 730 precompilato. Dichiarino
+        works as a knowledge + calculation engine &mdash; it cannot submit your return for you.
+        Always verify results with a qualified professional (CAF, commercialista).
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features">
+    <div class="container">
+      <h2 class="section-title">12 MCP Tools</h2>
+      <p class="section-subtitle">
+        Every tool your AI assistant needs to help with the Italian 730 form.
+      </p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-name">calcola_irpef</div>
+          <div class="feature-desc">IRPEF lorda from income + year (2024: 23% / 35% / 43%)</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-name">calcola_detrazione_lavoro</div>
+          <div class="feature-desc">Work income tax credit &mdash; formula per bracket + &euro;65 bonus</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-name">calcola_detrazioni_familiari</div>
+          <div class="feature-desc">Detrazioni for spouse, children &ge;21, other dependants</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-name">calcola_oneri</div>
+          <div class="feature-desc">Quadro E deductions &mdash; medical, mortgage, renovation, university&hellip;</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-name">verifica_spesa_detraibile</div>
+          <div class="feature-desc">Is this expense deductible? Which quadro? How much?</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-name">valida_codice_fiscale</div>
+          <div class="feature-desc">Validate + parse Italian codice fiscale (check digit algorithm)</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-name">calcola_risultato_dichiarazione</div>
+          <div class="feature-desc">Full 730 result &mdash; rimborso (refund) or debito (tax due)</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-name">guida_quadro</div>
+          <div class="feature-desc">Step-by-step guide for any Quadro (A&ndash;W, M, T)</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-name">lista_documenti_spesa</div>
+          <div class="feature-desc">Documents needed for a specific expense type</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-name">genera_checklist_730</div>
+          <div class="feature-desc">Personalised compilation checklist based on your situation</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-name">calcola_addizionale_regionale</div>
+          <div class="feature-desc">Regional IRPEF surcharge for all 20 Italian regions</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-name">analizza_certificazione_unica</div>
+          <div class="feature-desc">Validate CU (Certificazione Unica) fields for consistency</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Start -->
+  <section id="quickstart">
+    <div class="container">
+      <h2 class="section-title">Quick Start</h2>
+      <p class="section-subtitle">Up and running in under a minute.</p>
+      <div class="quickstart-steps">
+
+        <div class="step">
+          <div class="step-label">Step 1 &mdash; Clone &amp; install</div>
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-lang">bash</span>
+              <button class="copy-btn" data-target="code-install">Copy</button>
+            </div>
+            <pre><code id="code-install">git clone https://github.com/gsaccardi/dichiarino-mcp.git
+cd dichiarino-mcp
+uv sync</code></pre>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-label">Step 2 &mdash; Add to Claude Desktop</div>
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-lang">json</span>
+              <button class="copy-btn" data-target="code-config">Copy</button>
+            </div>
+            <pre><code id="code-config">{
+  "mcpServers": {
+    "dichiarino": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/path/to/dichiarino-mcp",
+        "run",
+        "dichiarino"
+      ]
+    }
+  }
+}</code></pre>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-label">Step 3 &mdash; Ask away</div>
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-lang">prompt</span>
+            </div>
+            <pre><code>Calcola l'IRPEF per un reddito di 35.000&euro; nel 2024.</code></pre>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Example -->
+  <section id="example">
+    <div class="container">
+      <h2 class="section-title">See It In Action</h2>
+      <p class="section-subtitle">A real interaction between a user and an AI assistant with Dichiarino connected.</p>
+      <div class="example-box">
+        <div class="example-header">Claude Desktop</div>
+        <div class="example-body">
+          <div class="example-line">
+            <span class="example-role user">You:</span>
+            Ho speso 1.200&euro; dal medico quest'anno. Cosa posso detrarre?
+          </div>
+          <div class="example-line">
+            <span class="example-role assistant">Claude:</span>
+            <span class="example-tool">calcola_oneri</span>
+            <div class="example-result">
+              Spese sanitarie: 1.200&euro; &minus; franchigia 129,11&euro; = 1.070,89&euro;<br />
+              Detrazione IRPEF: 1.070,89&euro; &times; 19% = <strong>203,47&euro;</strong><br />
+              Documenti: fatture mediche, scontrini farmacia con CF
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coverage -->
+  <section id="coverage">
+    <div class="container">
+      <h2 class="section-title">Tax Year Coverage</h2>
+      <p class="section-subtitle">Dichiarino supports multiple tax years out of the box.</p>
+      <table class="coverage-table">
+        <thead>
+          <tr>
+            <th>Anno di imposta</th>
+            <th>Modello</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2025</td>
+            <td>730/2026</td>
+            <td>&#10003; Fully supported (default)</td>
+          </tr>
+          <tr>
+            <td>2024</td>
+            <td>730/2025</td>
+            <td>&#10003; Fully supported</td>
+          </tr>
+          <tr>
+            <td>2023</td>
+            <td>730/2024</td>
+            <td>&#10003; IRPEF brackets supported</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://github.com/gsaccardi/dichiarino-mcp">GitHub</a>
+        <a href="https://github.com/gsaccardi/dichiarino-mcp/issues">Issues</a>
+        <a href="https://github.com/gsaccardi/dichiarino-mcp/blob/main/LICENSE">License (Apache 2.0)</a>
+        <a href="https://github.com/gsaccardi/dichiarino-mcp/blob/main/CONTRIBUTING.md">Contributing</a>
+      </div>
+      <p class="footer-disclaimer">
+        The fiscal calculations provided are for informational purposes only and do not constitute
+        professional tax or legal advice. Always verify your tax return with a qualified professional
+        before submission.
+      </p>
+      <p class="footer-disclaimer">
+        &copy; 2025 Dichiarino Contributors &middot; Licensed under Apache 2.0
+      </p>
+      <div class="footer-tricolor">
+        <span class="tricolor-green"></span>
+        <span class="tricolor-white"></span>
+        <span class="tricolor-red"></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
