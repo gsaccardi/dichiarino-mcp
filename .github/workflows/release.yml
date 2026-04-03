@@ -1,21 +1,69 @@
-name: Release
+name: CI & Release
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version (e.g. 0.2.0)"
+        required: true
+        type: string
 
 jobs:
-  release:
+  ci:
+    name: CI (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Install uv
         uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+
+      - name: Set up Python ${{ matrix.python-version }}
+        run: uv python install ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: uv sync --dev
+
+      - name: Lint with ruff
+        run: uv run ruff check src/ tests/
+
+      - name: Format check with ruff
+        run: uv run ruff format --check src/ tests/
+
+      - name: Type check with mypy
+        run: uv run mypy src/
+
+      - name: Run tests
+        run: uv run pytest tests/ -v --tb=short
+
+  release:
+    name: Release
+    needs: ci
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
 
       - name: Set up Python
         run: uv python install 3.11
@@ -23,24 +71,91 @@ jobs:
       - name: Install dependencies
         run: uv sync --dev
 
-      - name: Run tests
-        run: uv run pytest tests/ -v
+      - name: Update CHANGELOG.md
+        env:
+          VERSION: ${{ inputs.version }}
+          REPO: gsaccardi/dichiarino-mcp
+        run: |
+          python - <<'PYEOF'
+          import re, os, sys
+          from datetime import datetime, timezone
+
+          version = os.environ["VERSION"]
+          repo    = os.environ["REPO"]
+          date    = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+          with open("CHANGELOG.md") as f:
+              content = f.read()
+
+          if "## [Unreleased]" not in content:
+              print("ERROR: no [Unreleased] section in CHANGELOG.md", file=sys.stderr)
+              sys.exit(1)
+
+          # Rename [Unreleased] → [version], keep a fresh [Unreleased] above
+          content = content.replace(
+              "## [Unreleased]",
+              f"## [Unreleased]\n\n---\n\n## [{version}] - {date}",
+              1,
+          )
+
+          # Remove old [Unreleased] link
+          content = re.sub(r"^\[Unreleased\]:.*\n?", "", content, flags=re.MULTILINE)
+
+          # Determine previous latest version for compare URL
+          prev = re.search(r"^\[(\d+\.\d+\.\d+)\]:", content, re.MULTILINE)
+          prev_version = prev.group(1) if prev else None
+
+          unreleased_link = f"[Unreleased]: https://github.com/{repo}/compare/v{version}...HEAD"
+          if prev_version:
+              new_link = f"[{version}]: https://github.com/{repo}/compare/v{prev_version}...v{version}"
+          else:
+              new_link = f"[{version}]: https://github.com/{repo}/releases/tag/v{version}"
+
+          # Insert both links before the first existing version link
+          first = re.search(r"^\[[\d.]+\]:", content, re.MULTILINE)
+          if first:
+              pos = first.start()
+              content = content[:pos] + unreleased_link + "\n" + new_link + "\n" + content[pos:]
+          else:
+              content = content.rstrip() + "\n\n" + unreleased_link + "\n" + new_link + "\n"
+
+          with open("CHANGELOG.md", "w") as f:
+              f.write(content)
+
+          print(f"CHANGELOG.md updated → v{version} ({date})")
+          PYEOF
+
+      - name: Bump version in pyproject.toml
+        run: |
+          sed -i 's/^version = ".*"/version = "${{ inputs.version }}"/' pyproject.toml
+
+      - name: Extract release notes
+        id: notes
+        run: |
+          VERSION="${{ inputs.version }}"
+          NOTES=$(awk \
+            "/^## \[${VERSION}\]/{found=1; next} \
+             found && /^(## \[|---)/{exit} \
+             found{print}" \
+            CHANGELOG.md)
+          echo "notes<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$NOTES"    >> "$GITHUB_OUTPUT"
+          echo "EOF"       >> "$GITHUB_OUTPUT"
+
+      - name: Commit and tag
+        run: |
+          git add CHANGELOG.md pyproject.toml
+          git commit -m "chore: release v${{ inputs.version }}"
+          git tag "v${{ inputs.version }}"
+          git push origin main --follow-tags
 
       - name: Build package
         run: uv build
 
-      - name: Extract changelog for this release
-        id: changelog
-        run: |
-          TAG=${GITHUB_REF_NAME}
-          VERSION=${TAG#v}
-          NOTES=$(awk "/^## \[${VERSION}\]/{found=1; next} found && /^## \[/{exit} found{print}" CHANGELOG.md)
-          echo "notes<<EOF" >> "$GITHUB_OUTPUT"
-          echo "$NOTES" >> "$GITHUB_OUTPUT"
-          echo "EOF" >> "$GITHUB_OUTPUT"
-
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: "v${{ inputs.version }}"
+          name: "v${{ inputs.version }}"
+          body: ${{ steps.notes.outputs.notes }}
           files: dist/*
-          body: ${{ steps.changelog.outputs.notes }}
